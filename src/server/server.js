@@ -69,7 +69,7 @@ let statusCounts = {
     '0': 0, '10': 0, '20': 0, '30': 0, '40': 0, '50': 0
 };
 
-flightSuretyApp.events.FlightStatusInfo({
+openInsureApp.events.FlightStatusInfo({
     fromBlock: 'latest'
 }, function (error, event) {
     if (error) {

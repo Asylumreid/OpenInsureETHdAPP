@@ -272,7 +272,7 @@ contract OpenInsureApp is ReentrancyGuard {
     );
 
     // Register an oracle with the contract
-    function registerOracle() external payable nonReentrant() {
+    function registerOracle() external payable  {
         // Require registration fee
         require(msg.value >= REGISTRATION_FEE, "Registration fee is required");
         uint8[3] memory indexes = generateIndexes(msg.sender);
@@ -297,7 +297,7 @@ contract OpenInsureApp is ReentrancyGuard {
         string memory flight,
         uint256 timestamp,
         uint8 statusCode
-    ) external nonReentrant() {
+    ) external {
         require(
             (oracles[msg.sender].indexes[0] == index) ||
                 (oracles[msg.sender].indexes[1] == index) ||
