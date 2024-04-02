@@ -1,19 +1,19 @@
-const FlightSuretyApp = artifacts.require("FlightSuretyApp");
-const FlightSuretyData = artifacts.require("FlightSuretyData");
+const OpenInsureApp = artifacts.require("OpenInsureApp");
+const OpenInsureData = artifacts.require("OpenInsureData");
 const fs = require('fs');
 
 module.exports = function(deployer) {
 
     let firstAirline = '0xf17f52151EbEF6C7334FAD080c5704D77216b732';
-    deployer.deploy(FlightSuretyData)
+    deployer.deploy(OpenInsureData)
     .then(() => {
-        return deployer.deploy(FlightSuretyApp, FlightSuretyData.address)
+        return deployer.deploy(OpenInsureApp, OpenInsureData.address)
                 .then(() => {
                     let config = {
                         localhost: {
                             url: 'http://localhost:8545',
-                            dataAddress: FlightSuretyData.address,
-                            appAddress: FlightSuretyApp.address
+                            dataAddress: OpenInsureData.address,
+                            appAddress: OpenInsureApp.address
                         }
                     }
                     fs.writeFileSync(__dirname + '/../src/dapp/config.json',JSON.stringify(config, null, '\t'), 'utf-8');

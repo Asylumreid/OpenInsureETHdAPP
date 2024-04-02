@@ -22,12 +22,12 @@ contract('Oracles', async (accounts) => {
   it('can register oracles', async () => {
     
     // ARRANGE
-    let fee = await config.flightSuretyApp.REGISTRATION_FEE.call();
+    let fee = await config.openInsureApp.REGISTRATION_FEE.call();
 
     // ACT
     for(let a=1; a<TEST_ORACLES_COUNT; a++) {      
-      await config.flightSuretyApp.registerOracle({ from: accounts[a], value: fee });
-      let result = await config.flightSuretyApp.getMyIndexes.call({from: accounts[a]});
+      await config.openInsureApp.registerOracle({ from: accounts[a], value: fee });
+      let result = await config.openInsureApp.getMyIndexes.call({from: accounts[a]});
       // console.log(`Oracle Registered: ${result[0]}, ${result[1]}, ${result[2]}`);
     }
   });
@@ -35,11 +35,11 @@ contract('Oracles', async (accounts) => {
   it('can request flight status', async () => {
     
     // ARRANGE
-    let flight = 'ND1309'; // Course number
+    let flight = 'BAC2002';
     let timestamp = Math.floor(Date.now() / 1000);
 
     // Submit a request for oracles to get status information for a flight
-    await config.flightSuretyApp.fetchFlightStatus(config.firstAirline, flight, timestamp);
+    await config.openInsureApp.fetchFlightStatus(config.firstAirline, flight, timestamp);
     // ACT
 
     // Since the Index assigned to each test account is opaque by design
@@ -49,12 +49,12 @@ contract('Oracles', async (accounts) => {
     for(let a=1; a<TEST_ORACLES_COUNT; a++) {
 
       // Get oracle information
-      let oracleIndexes = await config.flightSuretyApp.getMyIndexes.call({ from: accounts[a]});
+      let oracleIndexes = await config.openInsureApp.getMyIndexes.call({ from: accounts[a]});
       for(let idx=0;idx<3;idx++) {
 
         try {
           // Submit a response...it will only be accepted if there is an Index match
-          await config.flightSuretyApp.submitOracleResponse(oracleIndexes[idx], config.firstAirline, flight, timestamp, STATUS_CODE_ON_TIME, { from: accounts[a] });
+          await config.openInsureApp.submitOracleResponse(oracleIndexes[idx], config.firstAirline, flight, timestamp, STATUS_CODE_ON_TIME, { from: accounts[a] });
 
         }
         catch(e) {
@@ -68,6 +68,4 @@ contract('Oracles', async (accounts) => {
 
   });
 
-
- 
 });

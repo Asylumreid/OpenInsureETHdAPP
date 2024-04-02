@@ -1,6 +1,6 @@
 
-var FlightSuretyApp = artifacts.require("FlightSuretyApp");
-var FlightSuretyData = artifacts.require("FlightSuretyData");
+var OpenInsureApp = artifacts.require("OpenInsureApp");
+var OpenInsureData = artifacts.require("OpenInsureData");
 var BigNumber = require('bignumber.js');
 
 var Config = async function(accounts) {
@@ -23,8 +23,8 @@ var Config = async function(accounts) {
     let owner = accounts[0];
     let firstAirline = accounts[1];
 
-    let flightSuretyData = await FlightSuretyData.new();
-    let flightSuretyApp = await FlightSuretyApp.new(flightSuretyData.address);
+    let openInsureData = await OpenInsureData.new();
+    let openInsureApp = await OpenInsureApp.new(openInsureData.address);
 
     
     return {
@@ -32,8 +32,8 @@ var Config = async function(accounts) {
         firstAirline: firstAirline,
         weiMultiple: (new BigNumber(10)).pow(18),
         testAddresses: testAddresses,
-        flightSuretyData: flightSuretyData,
-        flightSuretyApp: flightSuretyApp
+        openInsureData: openInsureData,
+        openInsureApp: openInsureApp
     }
 }
 

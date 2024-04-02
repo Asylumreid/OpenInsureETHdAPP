@@ -1,7 +1,7 @@
 
 import DOM from './dom';
 import Contract from './contract';
-import './flightsurety.css';
+import './openinsure.css';
 
 
 (async () => {
