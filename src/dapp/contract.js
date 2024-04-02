@@ -6,118 +6,140 @@ export default class Contract {
     constructor(network, callback) {
 
         let config = Config[network];
-        this.web3 = new Web3(new Web3.providers.HttpProvider(config.url));
+        this.web3 = new Web3(window.ethereum);
         this.openInsureApp = new this.web3.eth.Contract(OpenInsureApp.abi, config.appAddress);
         this.initialize(callback);
-        this.owner = null;
         this.airlines = [];
         this.passengers = [];
     }
 
-    initialize(callback) {
-        this.web3.eth.getAccounts((error, accts) => {
-
-            this.owner = accts[0];
-
-            let counter = 1;
-
-            while (this.airlines.length < 5) {
-                this.airlines.push(accts[counter++]);
+    async initialize(callback) {
+        try {
+            const accounts = await this.web3.eth.getAccounts();
+            if (accounts.length > 0) {
+                this.currentAccount = accounts[0]; // Set the default account
+            } else {
+                throw new Error("No accounts found. Make sure MetaMask is connected.");
             }
-
-            while (this.passengers.length < 5) {
-                this.passengers.push(accts[counter++]);
-            }
-
             callback();
-        });
+        } catch (error) {
+            console.error("Initialization error:", error);
+        }
     }
 
-    isOperational(callback) {
-        let self = this;
-        self.openInsureApp.methods
-            .isOperational()
-            .call({ from: self.owner }, callback);
+    async isOperational(callback) {
+        try {
+            const result = await this.openInsureApp.methods.isOperational().call({ from: this.currentAccount });
+            callback(null, result);
+        } catch (error) {
+            callback(error, null);
+        }
     }
 
-    registerAirline(airlineName, airlineAddress, callback) {
-        let self = this;
-        self.openInsureApp.methods
-            .registerAirline(airlineName, airlineAddress)
-            .send({ from: self.owner, gas: 6721900 }, callback);
+    async registerAirline(airlineName, airlineAddress, callback) {
+        try {
+            const gasEstimate = await this.openInsureApp.methods.registerAirline(airlineName, airlineAddress).estimateGas({ from: this.currentAccount });
+            const result = await this.openInsureApp.methods.registerAirline(airlineName, airlineAddress).send({ from: this.currentAccount, gas: gasEstimate });
+            callback(null, result);
+        } catch (error) {
+            callback(error, null);
+        }
     }
 
-    fundAirline(airlineAddress, callback) {
-        let self = this;
-        const fee = this.web3.utils.toWei('10', 'ether');
-        self.openInsureApp.methods
-            .fundAirline(airlineAddress)
-            .send({ from: airlineAddress, value: fee }, callback);
+    async fundAirline(airlineAddress, callback) {
+        try {
+            const fee = this.web3.utils.toWei('10', 'ether');
+            const gasEstimate = await this.openInsureApp.methods.fundAirline(airlineAddress).estimateGas({ from: airlineAddress, value: fee });
+            const result = await this.openInsureApp.methods.fundAirline(airlineAddress).send({ from: this.currentAccount, value: fee, gas: gasEstimate });
+            callback(null, result);
+        } catch (error) {
+            callback(error, null);
+        }
     }
 
-    voteForAirline(airlineAddress, callback) {
-        let self = this;
-        self.openInsureApp.methods
-            .voteForAirline(airlineAddress)
-            .send({ from: self.owner, gas: 6721900 }, callback);
+    async voteForAirline(airlineAddress, callback) {
+        try {
+            const gasEstimate = await this.openInsureApp.methods.voteForAirline(airlineAddress).estimateGas({ from: this.currentAccount });
+            const result = await this.openInsureApp.methods.voteForAirline(airlineAddress).send({ from: this.currentAccount, gas: gasEstimate });
+            callback(null, result);
+        } catch (error) {
+            callback(error, null);
+        }
     }
 
-    isAirlineRegistered(airlineAddress, callback) {
-        let self = this;
-        self.openInsureApp.methods
-            .isAirlineRegistered(airlineAddress)
-            .call({ from: self.owner }, callback);
+    async isAirlineRegistered(airlineAddress) {
+        try {
+            const result = await this.openInsureApp.methods.isAirlineRegistered(airlineAddress).call({ from: this.currentAccount });
+            return result;
+        } catch (error) {
+            console.error("Error in isAirlineRegistered:", error);
+            throw error; // Forward the error
+        }
     }
 
-    isAirlineFunded(airlineAddress, callback) {
-        let self = this;
-        self.openInsureApp.methods
-            .isAirlineFunded(airlineAddress)
-            .call({ from: self.owner }, callback);
+    async isAirlineFunded(airlineAddress, callback) {
+        try {
+            const result = await this.openInsureApp.methods.isAirlineFunded(airlineAddress).call({ from: this.currentAccount });
+            callback(null, result);
+        } catch (error) {
+            callback(error, null);
+        }
     }
 
-    isAirlinePending(airlineAddress, callback) {
-        let self = this;
-        self.openInsureApp.methods
-            .isAirlinePending(airlineAddress)
-            .call({ from: self.owner }, callback);
+    async isAirlinePending(airlineAddress, callback) {
+        try {
+            const result = await this.openInsureApp.methods.isAirlinePending(airlineAddress).call({ from: this.currentAccount });
+            callback(null, result);
+        } catch (error) {
+            callback(error, null);
+        }
     }
 
-    buy(flightName, airlineAddress, timestamp, amount, callback) {
-        let self = this;
-        const insuredAmount = this.web3.utils.toWei(amount, 'ether');
-        self.openInsureApp.methods
-            .buy(flightName, airlineAddress, timestamp)
-            .send({ from: self.owner, gas: 6721900, value: insuredAmount }, callback);
+    async buy(flightName, airlineAddress, timestamp, amount, callback) {
+        try {
+            const insuredAmount = this.web3.utils.toWei(amount, 'ether');
+            const gasEstimate = await this.openInsureApp.methods.buy(flightName, airlineAddress, timestamp).estimateGas({ from: this.currentAccount, value: insuredAmount });
+            const result = await this.openInsureApp.methods.buy(flightName, airlineAddress, timestamp).send({ from: this.currentAccount, value: insuredAmount, gas: gasEstimate });
+            callback(null, result);
+        } catch (error) {
+            callback(error, null);
+        }
     }
 
-    fetchFlightStatus(flightName, airlineAddress, timestamp, callback) {
-        let self = this;
+    async fetchFlightStatus(flightName, airlineAddress, timestamp, callback) {
         let payload = {
             airline: airlineAddress,
             flight: flightName,
             timestamp: timestamp
         }
-        self.openInsureApp.methods
-            .fetchFlightStatus(payload.airline, payload.flight, payload.timestamp)
-            .send({ from: self.owner }, (error, result) => {
-                callback(error, payload);
-            });
+        try {
+            const result = await this.openInsureApp.methods
+                .fetchFlightStatus(payload.airline, payload.flight, payload.timestamp)
+                .send({ from: this.currentAccount });
+            callback(null, payload);
+        } catch (error) {
+            callback(error, null);
+        }
     }
 
-    getPassengerCredit(passangerAddress, callback) {
-        let self = this;
-        self.openInsureApp.methods
-            .getPassengerCredit(passangerAddress)
-            .call({ from: self.owner }, callback);
+    async getPassengerCredit(passengerAddress, callback) {
+        try {
+            const result = await this.openInsureApp.methods.getPassengerCredit(passengerAddress).call({ from: this.currentAccount });
+            callback(null, result);
+        } catch (error) {
+            callback(error, null);
+        }
     }
 
-    withdrawCredit(pessangerAddress, callback) {
-        let self = this;
-        self.openInsureApp.methods
-            .withdrawCredit(pessangerAddress)
-            .send({ from: self.owner }, (error, result) => {
-                callback(error, result);
-            });
+    async withdrawCredit(passengerAddress, callback) {
+        try {
+            const gasEstimate = await this.openInsureApp.methods.withdrawCredit(passengerAddress).estimateGas({ from: this.currentAccount });
+            const result = await this.openInsureApp.methods.withdrawCredit(passengerAddress).send({ from: this.currentAccount, gas: gasEstimate });
+            callback(null, result);
+        } catch (error) {
+            callback(error, null);
+        }
     }
+
+
 }

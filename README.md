@@ -1,63 +1,67 @@
-# Fight Surety Dapp
+# OpenInsure Dapp
 
-This repository containts an Ethereum DApp that simulates an flight insurance service. It is not a full version of this kind of app but it is enough to ilustrate how it could be implemented over Ethereum.
+This repository contains OpenInsure, a Decentralised Flight Insurance Platform that helps to eliminate middleman and make claiming of flight insurance a smooth process.
 
-The project uses the next libraries and versions. A brief description of its use is provided:
+# Requirements to Run
+Please ensure that you are using the specific libraries and versions in order to run this project.
 
 | Library/Module/Tool | Version | Description
 |---|---|---|
-| *Truffle* | 5.4.5 (core: 5.4.5) | Smart contract development environment
-| *Solidity* | 0.4.24 (solc-js) | Object-oriented, high-level language for implementing smart contracts
-| *Infura* | | Allow the developers to connect to Ethereum networks without to store the full Ethereum blockchain.
-| *Node* | 14.16.0 | JavaScript runtime that allow to develop different type de applications
-| *Web3.js* | 1.2.0 | Collection of libraries that allow you to interact with a local or remote ethereum node using HTTP, IPC or WebSocket.
-| *webpack* | 4.6.0 | Allow to create the Dapp UI and simulate Oracles server.
-| *ganache-cli* | 6.12.2 | Local ethereum blockchain emulator.
+| *Truffle* | v5.11.5 (core: 5.11.5) | Our Environment to run Blockchain
+| *Solidity* | - 0.8.19 (solc-js) | Our language for implementing smart contracts in Ethereum
+| *Node* | v16.20.2 | JavaScript runtime to run our application
+| *Web3.js* | v1.10.0 | Libraries to interact with a local or remote ethereum node using HTTP, IPC or WebSocket.
+| *webpack* | v4.6.0 | To create the Dapp UI and simulate Oracles server
+| *ganache-cli* | v7.9.1 | Our Local ethereum blockchain emulator
+| *Metamask Extension* | No fixed version | To be used when interacting with our dAPP
 
 # Installation
-Run the next steps to run the application:
+To ensure a smooth process, please ensure you have `NPM` and `NVM` if needed to install our dependencies based on the version we are using.
 
-Run this command inside the root FlightSurety folder project:
+All commands will be run based in the Folder Directory.
+
+Run the following to install dependencies from our package.json
 ```bash
 npm install
 ```
 
-Compile the smart contracts
+To ensure all dependencies and libraries are supported in the Project, please run this code.
 ```bash
 truffle compile
 ```
-
-Execute ganache-cli with next parameters (This command is required to be executed before run tests or deploy the smart contracts):
+Now to create an instance of our Ethereum Blockchain environment, run this code. Please do ensure the mnemonic phrase is the same.
 ```bash
 ganache-cli -a 20 -l 9999999 -m "candy maple cake sugar pudding cream honey rich smooth crumble sweet treat"
 ```
 
-Terminal will show these address:
+Based on that, we will have a total of 20 accounts to be used for test, however the index(0) will be the Contract Owner.
+
+For your reference to be used in your MetaMask:
 ```text
 Available Accounts
 ==================
-(0) 0x627306090abaB3A6e1400e9345bC60c78a8BEf57 (100 ETH)
-(1) 0xf17f52151EbEF6C7334FAD080c5704D77216b732 (100 ETH)
-(2) 0xC5fdf4076b8F3A5357c5E395ab970B5B54098Fef (100 ETH)
-(3) 0x821aEa9a577a9b44299B9c15c88cf3087F3b5544 (100 ETH)
-(4) 0x0d1d4e623D10F9FBA5Db95830F7d3839406C6AF2 (100 ETH)
-(5) 0x2932b7A2355D6fecc4b5c0B6BD44cC31df247a2e (100 ETH)
-(6) 0x2191eF87E392377ec08E7c08Eb105Ef5448eCED5 (100 ETH)
-(7) 0x0F4F2Ac550A1b4e2280d04c21cEa7EBD822934b5 (100 ETH)
-(8) 0x6330A553Fc93768F612722BB8c2eC78aC90B3bbc (100 ETH)
-(9) 0x5AEDA56215b167893e80B4fE645BA6d5Bab767DE (100 ETH)
-(10) 0xE44c4cf797505AF1527B11e4F4c6f95531b4Be24 (100 ETH)
-(11) 0x69e1CB5cFcA8A311586e3406ed0301C06fb839a2 (100 ETH)
-(12) 0xF014343BDFFbED8660A9d8721deC985126f189F3 (100 ETH)
-(13) 0x0E79EDbD6A727CfeE09A2b1d0A59F7752d5bf7C9 (100 ETH)
-(14) 0x9bC1169Ca09555bf2721A5C9eC6D69c8073bfeB4 (100 ETH)
-(15) 0xa23eAEf02F9E0338EEcDa8Fdd0A73aDD781b2A86 (100 ETH)
-(16) 0xc449a27B106BE1120Bd1Fd62F8166A2F61588eb9 (100 ETH)
-(17) 0xF24AE9CE9B62d83059BD849b9F36d3f4792F5081 (100 ETH)
-(18) 0xc44B027a94913FB515B19F04CAf515e74AE24FD6 (100 ETH)
-(19) 0xcb0236B37Ff19001633E38808bd124b60B1fE1ba (100 ETH)
+(0) 0x627306090abaB3A6e1400e9345bC60c78a8BEf57
+(1) 0xf17f52151EbEF6C7334FAD080c5704D77216b732
+(2) 0xC5fdf4076b8F3A5357c5E395ab970B5B54098Fef
+(3) 0x821aEa9a577a9b44299B9c15c88cf3087F3b5544
+(4) 0x0d1d4e623D10F9FBA5Db95830F7d3839406C6AF2
+(5) 0x2932b7A2355D6fecc4b5c0B6BD44cC31df247a2e
+(6) 0x2191eF87E392377ec08E7c08Eb105Ef5448eCED5
+(7) 0x0F4F2Ac550A1b4e2280d04c21cEa7EBD822934b5
+(8) 0x6330A553Fc93768F612722BB8c2eC78aC90B3bbc 
+(9) 0x5AEDA56215b167893e80B4fE645BA6d5Bab767DE 
+(10) 0xE44c4cf797505AF1527B11e4F4c6f95531b4Be24 
+(11) 0x69e1CB5cFcA8A311586e3406ed0301C06fb839a2 
+(12) 0xF014343BDFFbED8660A9d8721deC985126f189F3 
+(13) 0x0E79EDbD6A727CfeE09A2b1d0A59F7752d5bf7C9 
+(14) 0x9bC1169Ca09555bf2721A5C9eC6D69c8073bfeB4 
+(15) 0xa23eAEf02F9E0338EEcDa8Fdd0A73aDD781b2A86 
+(16) 0xc449a27B106BE1120Bd1Fd62F8166A2F61588eb9 
+(17) 0xF24AE9CE9B62d83059BD849b9F36d3f4792F5081 
+(18) 0xc44B027a94913FB515B19F04CAf515e74AE24FD6 
+(19) 0xcb0236B37Ff19001633E38808bd124b60B1fE1ba
 
-Private Keys
+Private Keys to export to metamask to test
 ==================
 (0) 0xc87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3
 (1) 0xae6ae8e5ccbfb04590405997ee2d52d2b330726137b875053c36d94e974d162f
@@ -81,65 +85,94 @@ Private Keys
 (19) 0x49b2e2b48cfc25fda1d1cbdb2197b83902142c6da502dcf1871c628ea524f11b
 ```
 
-If you want to run the test cases:
+# However
+If there is a need to switch to Ganache Desktop instead of from client to deploy instead
+1. Create new workspace
+![step1](images/step1.png)
+2. Add truffle-config.js 
+![step2](images/step2.png)
+3. Follow the image (Define network)
+![step3](images/step3.png)
+4. Follow the next image (Account & Keys)
+![step4](images/step4.png)
+
+To ensure that all of our functions work in the Smart contract
 ```bash
 truffle test
 ```
 
 The result should be something like this:
 
-![truffle test](images/truffle-test.png)
+![truffle test](images/truffle_test.png)
 
-To deploy the smart contracts to Ganache you must run in terminal:
+Now, since all is working good, you can deploy the contract by running
 ```bash
 truffle migrate --network development
 ```
 
-The smart contracts will have the following addresses:
-
-| Contract | Address |
-|---|---|
-|  *FlightSuretyData* | 0x345cA3e014Aaf5dcA488057592ee47305D9B3e10
-|  *FlightSuretyApp* | 0xf25186B5081Ff5cE73482AD761DB0eB0d25abfBF
-
-Start the server that register the Oracles and simulates their responses:
+Next, we can register the Oracles addresses and simulates their responses with:
 ```bash
 npm run server
 ```
 You should see this results in terminal:
 
-![run server](images/run-server.png)
+![run server](images/run_server.png)
 
-To run the dapp frontend you should run this command:
+To finally run our dApp, run this following line:
 ```bash
-npm run server
+npm run dapp
 ```
 The result is:
 
-![run dapp](images/run-dapp.png)
+![run dapp](images/run_dapp.png)
 
-![dapp](images/dapp.png)
 
-The Dapp has 4 different sections.
+# Before we start
+Please ensure that your metamask has at least imported `0xc87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3` private key which is the index[0] (Owner account) to view the function in dApp, to view the insured passenger function - please use an account not registered as Airline.
 
-1. Operational status: shows if the smart contracts are operative or locked.
-2. Airline registration: allows the user to execute actions relative to the airlines
+# Let's briefly go through what our dApp does
 
-| Action | Notes |
-|---|---|
-|  *Register* | Airline Name and Airline Address are required.
-|  *Action over Airline* | Fund, Vote, Is registered, Is Funded and Is Pending actions require that user inputs the Airline Address.
+The dApp serves both the (DAO/Airlines) and Passengers:
 
-3. Insure Flight: Allows a passenger to buy an insurance for an specific flight.
+# For the (DAO/Airlines)
 
-| Action | Notes |
-|---|---|
-|  *Buy* | Flight Name, Airline Address, Timestamp and amount are required.
-|  *Fetch Flight Status* | Send a request for the simulated oracles that are running in the server part. Flight Name, Airline Address and Timestamp are required fields.
+Operational status: To check whether the site is operative.
 
-4. Passenger Detail: Allow a passenger verify his/her accredited amount when a flight is delayed. Also allow him to withdraw the credit.
+Airline registration:
+1. Registers Airline name to an Airline Address
 
-| Action | Notes |
-|---|---|
-|  *Check Credit Pending to Withdraw* | Passenger Address is required.
-|  *Withdraw* | Passenger Address is required. Allow the user to withdraw the credit obtained by his/her purchased insurance.
+Check Airline Status (Once Airline address is included):
+1. Is Registered (Checks whether Airline is registered)
+2. Is Pending (Checks whether Airline is Voted to be registered)
+3. Is Funded (Check whether the Airline Address is Funded)
+
+Registered Airline Functions:
+1. Fund - To ensure airline address is funded with 10ETH to pay insured that purchase 
+2. Vote - To vote for pending airline address to be part of the dApp
+
+Voting Consensus for Registration (Will be invoked only when there is already four registered addresses):
+1. DAO (Registered Address) is able to vote for pending airlines to be registered addresses
+
+![dapp](images/dapp1.png)
+
+
+# For Passengers
+
+Purchase Insurance for Flight:
+1. Input flight datails
+2. Input insured amount (If flight delayed/cancelled, insured amount will be paid 1.5x)
+
+Fetch Flight Status:
+1. Input flight details and insured amount
+2. Pay gas fee to utilise Oracle to fetch (simulated) data to check status of flight
+
+Check Insurance Pending Balance:
+1. If Oracle (3 or more) submits as cancelled/delayed, amount will be pending for insured passenger
+2. Insured passenger can check the amount after fetching flight status
+
+Withdraw Insured Amount:
+1. Once pending balance is more than 0
+2. Passenger is able to pay gas fee to initiate contract to make payment back to insured
+3. Multiple conditions implemented to ensure Passenger is able to withdraw once per flight and is an insure passenger
+
+![dapp](images/dapp2.png)

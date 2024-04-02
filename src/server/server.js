@@ -63,6 +63,40 @@ openInsureApp.events.FlightStatusInfo({}).on('data', async (event, error) => {
 	console.log("error=", error);
 });
 
+// a counter with list on the number of status code:
+// Initialize status counts
+let statusCounts = {
+    '0': 0, '10': 0, '20': 0, '30': 0, '40': 0, '50': 0
+};
+
+flightSuretyApp.events.FlightStatusInfo({
+    fromBlock: 'latest'
+}, function (error, event) {
+    if (error) {
+        console.log(error);
+        return;
+    }
+
+    const { airline, flight, timestamp, status } = event.returnValues;
+    console.log(`FlightStatusInfo event received: flight = ${flight}, status = ${status}`);
+
+    // Increment the count for the received status
+    if (statusCounts.hasOwnProperty(status)) {
+        statusCounts[status]++;
+    } else {
+        statusCounts[status] = 1;
+    }
+
+    // Print the current counts for each status
+    console.log('Current Status Counts:', statusCounts);
+
+    // Check the count for status 20
+    if (statusCounts['20'] > 3) {
+        console.log(`Eligible for credit insurance: flight ${flight} with status code ${status} has occurred ${statusCounts['20']} times.`);
+    }
+});
+
+
 const app = express();
 app.get('/api', (req, res) => {
 	res.send({

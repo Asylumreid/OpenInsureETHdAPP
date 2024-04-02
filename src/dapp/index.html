@@ -1,107 +1,154 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>FlightSurety</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenInsure </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <style>
+        /* Additional CSS can be added here for custom styling */
+        body {
+            padding-top: 70px; /* Adjusted for the fixed navbar */
+        }
+
+        .top-20 {
+            margin-top: 20px;
+        }
+        /* Curved container edges */
+        .container {
+            border-radius: 10px; /* Adjust the value as per your preference */
+            overflow: hidden; /* Ensures that the curved corners are applied */
+        }
+    </style>
 </head>
 
 <body>
-
+    <!-- Navigation -->
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="#">FlightSurety</a>
+        <a class="navbar-brand" href="#">OpenInsure</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
     </nav>
 
-    <main class="container">
-        <div id="display-wrapper-operational" class="top-20"></div>
-    </main>
+       <!-- Section for Owner/Registered Airlines -->
+    <div id="owner-section" style="display: none;">
+       <main class="container">
+<div id="display-wrapper-operational" class="top-20"></div>
 
-    <main class="container">
-        <h2>Airline Registration</h2>
-        
-        <div class="row top-20">
-            <label class="form">Register Airlines</label>
-            <input type="text" id="airline-name" placeholder="Airline Name">
-            <input type="text" id="airline-address" style="width: 400px;" placeholder="Airline Address">
-            <btn class="btn btn-primary" id="submit-airline">Register</btn>
-        </div>
-
-        <div id="display-wrapper" class="top-20" />
-        </div>
-        <div class="row top-20">
-            <label class="form">Action over Airline</label>
-            <input type="text" id="airline-fund-address" style="width: 400px;" placeholder="Airline Address">
-            <btn class="btn btn-primary" id="fund-airlines">Fund</btn>
-            <btn class="btn btn-primary" id="vote-airlines" style="margin-left: 10px;">Vote</btn>
-            <btn class="btn btn-primary" id="is-registered" style="margin-left: 10px;">Is Registered</btn>
-            <btn class="btn btn-primary" id="is-funded" style="margin-left: 10px;">Is Funded</btn>
-            <btn class="btn btn-primary" id="is-pending" style="margin-left: 10px;">Is Pending</btn>
-        </div>
-
-        <div style="margin-top: 40px;">
-            <h5>Results:</h5>
-            <div id="display-wrapper-register">
-
+        <!-- Airline Registration Section -->
+        <section id="airline-registration" class="top-20">
+            <h2>Airline Registration</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="airline-name">Airline Name:</label>
+                    <input type="text" id="airline-name" class="form-control" placeholder="Enter Airline Name">
+                </div>
+                <div class="col-md-6">
+                    <label for="airline-address">Airline Address:</label>
+                    <input type="text" id="airline-address" class="form-control" placeholder="Enter Airline Address">
+                </div>
             </div>
-        </div>
-    </main>
-
-    <main class="container" class="top-20">
-        <h2>Insure Flight</h2>
-        
-        <div class="row top-20">
-            <input type="text" id="flight-name" placeholder="Flight Name" style="width: 400px;">
-        </div>
-
-        <div class="row top-20">
-            <input type="text" id="insurence-airline-address" placeholder="Airline Address" style="width: 400px;">
-        </div>
-
-        <div class="row top-20">
-            <input type="text" id="flight-timestamp" placeholder="Timestamp (20210827)" style="width: 400px;">
-        </div>
-
-        <div class="row top-20">
-            <input type="text" id="insurence-amount" placeholder="1 or less ETH" style="width: 400px;">
-        </div>
-        <div class="row top-20">
-            <btn class="btn btn-primary" id="submit-buy">Buy</btn>
-            <btn class="btn btn-primary" id="submit-oracle" style="margin-left: 10px;">Fetch Flight Status</btn>
-        </div>
-
-        <div style="margin-top: 40px;">
-            <h5>Results:</h5>
-            <div id="display-wrapper-buy">
-
+            <div class="row top-20">
+                <div class="col-md-6">
+                    <button class="btn btn-primary btn-block" id="submit-airline">Register Airline</button>
+                </div>
             </div>
-        </div>
-    </main>
+            <div id="display-wrapper" class="top-20"></div>
+        </section>
+        </main>
 
-    <main class="container" class="top-20">
-        <h2>Passenger Detail</h2>
-
-        <div class="row top-20">
-            <label class="form">Check Balance</label>
-            <input type="text" id="passanger-address" placeholder="Passenger Address" style="width: 400px;">
-            <btn class="btn btn-primary" id="check-balance">Check Credit Pending to Withdraw</btn>
-            <btn class="btn btn-primary" id="withdraw-balance" style="margin-left: 10px;">Withdraw</btn>
-        </div>
-
-        <div style="margin-top: 40px;">
-            <h5>Results:</h5>
-            <div id="display-wrapper-passenger-detail">
-
+        <main class="container">
+        <!-- Action over Airline Section -->
+        <section id="action-over-airline" class="top-20">
+            <h2>Action over Airline</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="text" id="airline-fund-address" class="form-control" placeholder="Airline Address">
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-primary" id="fund-airlines">Fund</button>
+                    <button class="btn btn-primary" id="vote-airlines">Vote</button>
+                    <button class="btn btn-primary" id="is-registered">Is Registered</button>
+                    <button class="btn btn-primary" id="is-funded">Is Funded</button>
+                    <button class="btn btn-primary" id="is-pending">Is Pending</button>
+                </div>
             </div>
-        </div>
-    </main>
+            <div class="top-20">
+                <h5>Results:</h5>
+                <div id="display-wrapper-register"></div>
+            </div>
+        </section>
+        </main>
+</div>
 
+<!-- Section for Unregistered Users -->
+<div id="user-section" style="display: none;">
+        <main class="container">
+        <!-- Insure Flight Section -->
+        <section id="insure-flight" class="top-20">
+            <h2>Insure Flight</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="text" id="flight-name" class="form-control" placeholder="Flight Name">
+                </div>
+                <div class="col-md-6">
+                    <input type="text" id="insurence-airline-address" class="form-control"
+                        placeholder="Airline Address">
+                </div>
+            </div>
+            <div class="row top-20">
+                <div class="col-md-6">
+                    <input type="text" id="flight-timestamp" class="form-control" placeholder="Timestamp (20210827)">
+                </div>
+                <div class="col-md-6">
+                    <input type="text" id="insurence-amount" class="form-control" placeholder="1 or less ETH">
+                </div>
+            </div>
+            <div class="row top-20">
+                <div class="col-md-6">
+                    <button class="btn btn-primary btn-block" id="submit-buy">Buy</button>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-primary btn-block" id="submit-oracle">Fetch Flight Status</button>
+                </div>
+            </div>
+            <div class="top-20">
+                <h5>Results:</h5>
+                <div id="display-wrapper-buy"></div>
+            </div>
+        </section>
+        </main>
+
+        <main class="container">
+        <!-- Passenger Detail Section -->
+        <section id="passenger-detail" class="top-20">
+            <h2>Passenger Detail</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="text" id="passanger-address" class="form-control" placeholder="Passenger Address">
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-primary" id="check-balance">Check Credit Pending to Withdraw</button>
+                    <button class="btn btn-primary" id="withdraw-balance">Withdraw</button>
+                </div>
+            </div>
+            <div class="top-20">
+                <h5>Results:</h5>
+                <div id="display-wrapper-passenger-detail"></div>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    <!-- Your custom JavaScript file can be included here -->
 </body>
 
 </html>
