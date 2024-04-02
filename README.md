@@ -25,7 +25,7 @@ Run the following to install dependencies from our package.json
 npm install
 ```
 
-To ensure all dependencies and libraries are supported in the Project, please run this code.
+To ensure all dependencies and libraries are supported in the Project, please run this code. (If there is an issue with the test, please ensure your solc version is 0.8.19)
 ```bash
 truffle compile
 ```
@@ -96,7 +96,7 @@ If there is a need to switch to Ganache Desktop instead of from client to deploy
 4. Follow the next image (Account & Keys)
 ![step4](images/step4.png)
 
-To ensure that all of our functions work in the Smart contract
+To ensure that all of our functions work in the Smart contract (If there is an issue with any test case, make a change and revert back in the Solidity contract and save)
 ```bash
 truffle test
 ```

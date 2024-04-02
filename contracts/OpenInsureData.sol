@@ -185,7 +185,6 @@ contract OpenInsureData is ReentrancyGuard {
         requireIsOperational
         nonReentrant()
     {
-        require(insuredPassenger == tx.origin, "Contracts not allowed");
         require(
             passengers[insuredPassenger].passengerAddress != address(0),
             "The passenger is not insured"

@@ -142,14 +142,12 @@ const GANACHE_OWNER_ACCOUNT = "0x627306090abaB3A6e1400e9345bC60c78a8BEf57";
     let checkBalanceBtn = DOM.elid('check-balance');
     if (checkBalanceBtn) {
         checkBalanceBtn.addEventListener('click', () => {
-            // Your logic here
         });
     }
 
     let withdrawBalanceBtn = DOM.elid('withdraw-balance');
     if (withdrawBalanceBtn) {
         withdrawBalanceBtn.addEventListener('click', () => {
-            // Your logic here
         });
     }
 });
