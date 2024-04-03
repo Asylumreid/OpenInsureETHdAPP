@@ -96,7 +96,8 @@ If there is a need to switch to Ganache Desktop instead of from client to deploy
 4. Follow the next image (Account & Keys)
 ![step4](images/step4.png)
 
-To ensure that all of our functions work in the Smart contract (If there is an issue, try making some changes to the smart contract and then revert those changes back. After saving these adjustments, re-run the test, as this process can often resolve issues and allow the test to pass successfully.)
+To ensure that all of our functions work in the Smart contract - might just to want to run thrice 
+(If there is an issue, try making some changes to the smart contract and then revert those changes back. After saving these adjustments, re-run the test, as this process can often resolve issues and allow the test to pass successfully.)
 ```bash
 truffle test
 ```
